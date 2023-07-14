@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import "./App.css";
+import TodoForm from './TodoForm';
+import DeleteButton from './DeleteButton';
+import TodoDisplay from './TodoDisplay';
 
-function App() {
+const App = () => {
+  const [todos, setTodos] = useState([]);
+  const [checkedTodos, setCheckedTodos] = useState([]);
+
+  const handleCheckTodo = (index) => {
+    setCheckedTodos((prevCheckedTodos) =>
+      prevCheckedTodos.includes(index)
+        ? prevCheckedTodos.filter((i) => i !== index)
+        : [...prevCheckedTodos, index]
+    );
+  };
+  const handleAddTodo = (todo) => {
+    setTodos([...todos, todo]);
+  };
+
+  const handleDeleteTodo = (index) => {
+    setTodos(todos.filter((i) => i !== index));
+  };
+
+  console.log("render");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Todo List</h1>
+      <TodoForm onAddTodo={handleAddTodo} />
+      <TodoDisplay todos={todos} checkedTodos={checkedTodos} handleCheckTodo={handleCheckTodo} />
+      <DeleteButton />
     </div>
   );
-}
+};
 
 export default App;
