@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import "./App.css";
 import TodoForm from './TodoForm';
 import DeleteButton from './DeleteButton';
 import TodoDisplay from './TodoDisplay';
+
+const Title = React.memo(() => {
+  console.log('Title')
+  return(
+    <h1>Todo List</h1>
+  )
+})
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -15,22 +22,33 @@ const App = () => {
         : [...prevCheckedTodos, index]
     );
   };
-  const handleAddTodo = (todo) => {
-    setTodos([...todos, todo]);
-  };
+  
+  const handleAddTodo = useCallback((todo) => {
+    setTodos((prev)=>[...prev, todo]);
+  },[]);
 
-  const handleDeleteTodo = (index) => {
-    setTodos(todos.filter((i) => i !== index));
-  };
 
-  console.log("render");
+
+  const handleDeleteTodo = useCallback(() => {
+    console.log('handle delete')
+  },[]);
+
+
+  console.log("App render");
+
+
+  const MemorizedTodoForm = useMemo(()=>{
+    return(
+      <TodoForm onAddTodo={handleAddTodo} />
+    )
+  },[handleAddTodo])
 
   return (
     <div className='App'>
-      <h1>Todo List</h1>
-      <TodoForm onAddTodo={handleAddTodo} />
+      <Title/>
+      {MemorizedTodoForm}
       <TodoDisplay todos={todos} checkedTodos={checkedTodos} handleCheckTodo={handleCheckTodo} />
-      <DeleteButton />
+      <DeleteButton handleDeleteTodo={handleDeleteTodo} />
     </div>
   );
 };

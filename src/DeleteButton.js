@@ -1,12 +1,17 @@
 import React from 'react';
 
-const DeleteButton = ({ onDeleteCheckedTodos }) => {
-  console.log("render-delte")
+const DeleteButton = ({ handleDeleteTodo }) => {
+  console.log("render-delete");
   return (
-    <button onClick={onDeleteCheckedTodos}>
+    <button style={{ marginTop: '1rem' }} onClick={handleDeleteTodo}>
       Delete Task
     </button>
   );
 };
 
-export default DeleteButton;
+const areEqual = (prevProps, nextProps) => {
+  // Only re-render if the onDeleteCheckedTodos prop changes
+  return prevProps.handleDeleteTodo === nextProps.handleDeleteTodo;
+};
+
+export default React.memo(DeleteButton, areEqual);
