@@ -16,7 +16,7 @@ const TodoForm = ({ onAddTodo }) => {
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" name="todoInput" placeholder="Enter a task" required />
-      <button type="submit">Add Task</button>
+      <button style={{marginLeft:'1rem'}}type="submit">Add Task</button>
     </form>
   );
 };
