@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import classes from './TodoDisplay.module.css';
+import { TodoContext } from './App';
 
-const TodoDisplay = ({ todos,checkedTodos, handleCheckTodo }) => {
-  
-  console.log("Todo display")
+const TodoDisplay = ({ checkedTodos, handleCheckTodo }) => {
+  const todos = useContext(TodoContext);
+
+  console.log('Todo display');
+
   return (
-    <div style={{
-      height:'40vh',
-      border:'1px solid #c1c1c1',
-      overflow:'hidden',
-      overflowY:'scroll',
-      mb:'1rem'
-    }}>
+    <div className={classes.display}>
       <ol>
         {todos.map((todo, index) => (
           <p key={index}>
             {todo}
             <input
-              type="checkbox"
+              type='checkbox'
               checked={checkedTodos.includes(index)}
-              onChange={()=>handleCheckTodo(index)}
+              onChange={() => handleCheckTodo(index)}
             />
           </p>
         ))}
@@ -27,4 +25,4 @@ const TodoDisplay = ({ todos,checkedTodos, handleCheckTodo }) => {
   );
 };
 
-export default React.memo(TodoDisplay);
+export default TodoDisplay;

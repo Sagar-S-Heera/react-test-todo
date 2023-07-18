@@ -1,0 +1,7 @@
+.display{
+  height: 40vh;
+  border: 1px solid #c1c1c1;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-bottom: 1rem;
+}

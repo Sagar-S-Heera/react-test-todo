@@ -5,12 +5,8 @@ const TodoForm = ({ onAddTodo }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const inputValue = event.target.elements.todoInput.value;
-    if (inputValue === '') {
-      alert("Enter text!");
-    } else {
       onAddTodo(inputValue);
       event.target.reset();
-    }
   };
   console.log("render-todoform")
   return (
